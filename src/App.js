@@ -14,11 +14,11 @@ class App extends Component {
     fetch('http://localhost:3000/users', {
       method: "POST",
       headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        user:{
+        user: {
           name: user.name,
           username: user.username,
           password: user.password
@@ -26,7 +26,7 @@ class App extends Component {
       })
     })
     .then(resp => resp.json())
-    .then(user => this.setState({ user }))
+    .then(user => this.setState({user: user.user}))
   }
 
   login = (user) => {
@@ -68,9 +68,9 @@ class App extends Component {
     return (
       <div>
         <div>
-        {this.state.user.username ? <h1>Welcome {this.state.user.username}</h1> : (
+        {this.state.user.username ? <h1>Welcome {this.state.user.name}</h1> : (
           <div>
-            <Login login={this.login} />
+            {/* <Login login={this.login} /> */}
             <SignUp  signUp={this.signUp} />
           </div>
         )

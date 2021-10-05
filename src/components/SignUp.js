@@ -16,6 +16,7 @@ class SignUp extends Component {
     handleSubmit = (e) => {
         e.preventDefault()
         this.props.signUp(this.state)
+        console.log(this.state)
     }
 
     render() {
@@ -23,11 +24,11 @@ class SignUp extends Component {
             <form onSubmit={this.handleSubmit}>
                 <h1>Sign up form</h1>
                 <label>Name: </label>
-                <input name="name" onChange={this.handleChange}/>
+                <input name="name" value={this.state.name} onChange={this.handleChange}/>
                 <label>Username: </label>
-                <input name="username" onChange={this.handleChange}/>
+                <input name="username" value={this.state.username} onChange={this.handleChange}/>
                 <label>Password: </label>
-                <input name="password" type="password" onChange={this.handleChange}/>
+                <input name="password" type="password"  value={this.state.password} onChange={this.handleChange}/>
                 <input type="submit" value="Sign up"/>
             </form>
         )
