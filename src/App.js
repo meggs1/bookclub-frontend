@@ -9,11 +9,30 @@ class App extends Component {
     books: []
   }
 
+  signUp = (user) => {
+    fetch('http://localhost:3000/users', {
+      method: "POST",
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user:{
+          name: user.name,
+          username: user.username,
+          password: user.password
+        }
+      })
+    })
+    .then(resp => resp.json())
+    .then(user => this.setState({ user }))
+  }
+
   componentDidMount() {
     fetch('http://localhost:3000/books')
     .then(resp => resp.json())
     .then(data => this.setState({books: data}))
-    
+    .catch(err => console.log(err))
   }
  
   render() {
@@ -21,7 +40,9 @@ class App extends Component {
     return (
       <div>
         <div>
-        <SignUp />
+        {this.state.user.username ? <h1>Welcome {this.state.user.username}</h1> : 
+          <SignUp  signUp={this.signUp} />
+        }
         </div>
         {this.state.books.map(book => 
           <div>
