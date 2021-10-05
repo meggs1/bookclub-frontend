@@ -44,15 +44,16 @@ class App extends Component {
       })
     })
     .then(resp => resp.json())
-    .then(data => {
-      if (data.token) {
-        localStorage.setItem('token', data.token)
+    .then(result => {
+      if (result.jwt) {
+        localStorage.setItem('token', result.jwt)
         this.setState({
-          user: data.user
+          user: result.user
         })
+      } else {
+        console.log(result)
       }
     })
-
   }
 
   componentDidMount() {
@@ -67,11 +68,12 @@ class App extends Component {
     return (
       <div>
         <div>
-        {this.state.user.username ? <h1>Welcome {this.state.user.username}</h1> : 
+        {this.state.user.username ? <h1>Welcome {this.state.user.username}</h1> : (
           <div>
             <Login login={this.login} />
             <SignUp  signUp={this.signUp} />
           </div>
+        )
         }
         </div>
         {this.state.books.map(book => 
